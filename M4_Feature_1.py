@@ -4,7 +4,7 @@ from openai import OpenAI
 
 def app():
     # Initialize the OpenAI client
-    client = OpenAI(api_key="OPENAI_API_KEY")
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
     # Function to get completion from OpenAI API
     def get_completion(prompt, model="gpt-3.5-turbo"):
