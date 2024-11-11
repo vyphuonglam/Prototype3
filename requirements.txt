@@ -11,5 +11,4 @@ streamlit_folium
 gtts
 PIL
 pathlib
-Pillow
 streamlit_option_menu
