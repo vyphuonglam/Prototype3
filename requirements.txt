@@ -1,0 +1,15 @@
+streamlit
+openai
+pandas
+numpy
+datetime
+timedelta
+fitz
+os
+folium
+streamlit_folium
+gtts
+PIL
+pathlib
+Pillow
+streamlit_option_menu
