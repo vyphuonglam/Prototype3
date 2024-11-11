@@ -2,13 +2,9 @@ streamlit
 openai
 pandas
 numpy
-datetime
-timedelta
-fitz
-os
+PyMuPDF        # Use PyMuPDF for fitz
 folium
-streamlit_folium
+streamlit-folium
 gtts
-PIL
-pathlib
-streamlit_option_menu
+Pillow         # Use Pillow instead of PIL
+streamlit-option-menu
