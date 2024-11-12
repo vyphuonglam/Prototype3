@@ -4,7 +4,7 @@ import streamlit as st
 from openai import OpenAI
 
 # Initialize the OpenAI client
-client = OpenAI(api_key=st.secrets["MY_API_KEY"])
+client = OpenAI(api_key="MY_API_KEY")
 
 # Define the app function
 def app():
