@@ -1,12 +1,24 @@
+import os
 import streamlit as st
 import pandas as pd
 from openai import OpenAI
 
-def app():
-    # Initialize the OpenAI client
-    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+# Initialize the OpenAI client
+client = OpenAI(api_key="MY_API_KEY_HERE")
 
-    # Function to get completion from OpenAI API
+# Set the file path, with an option to get it from an environment variable
+file_path = os.environ.get("/Users/joannele/Downloads/updated_synthetic_water_testing_data.csv", "/Users/joannele/Downloads/updated_synthetic_water_testing_data.csv")
+
+# Check if the CSV file exists before loading it
+if os.path.exists(file_path):
+    # Load the CSV data
+    data = pd.read_csv(file_path)
+else:
+    # Display an error message in Streamlit if the file is not found
+    st.error(f"Data file not found at path: {file_path}")
+    data = pd.DataFrame()  # Empty DataFrame as a fallback
+
+# Function to get completion from OpenAI API
 def get_completion(prompt, model="gpt-3.5-turbo"):
     completion = client.chat.completions.create(
         model=model,
@@ -21,7 +33,7 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
 data = pd.read_csv("/Users/joannele/Downloads/updated_synthetic_water_testing_data.csv")
 
 st.title("Water Testing Information Hub")
-st.write("Learn about interpreting water testing results! Select your water type and contaminants!")
+st.write("Learn about interpreting water testing results! Select your water type, contaminants, and testing method!")
 
 # Select box for water source
 source_options = st.selectbox(
@@ -80,5 +92,3 @@ with st.form(key="water_testing_chat"):
 
         # Display the formatted response with HTML styling
         st.markdown(formatted_response, unsafe_allow_html=True)
-
-      
