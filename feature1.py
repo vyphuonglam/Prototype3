@@ -6,8 +6,8 @@ from openai import OpenAI
 # Initialize the OpenAI client
 client = OpenAI(api_key="MY_API_KEY_HERE")
 
-# Set the file path, with an option to get it from an environment variable
-file_path = os.environ.get("/Users/joannele/Downloads/updated_synthetic_water_testing_data.csv", "/Users/joannele/Downloads/updated_synthetic_water_testing_data.csv")
+# Construct the file path using a relative path
+file_path = os.path.join(os.path.dirname(__file__), "data", "updated_synthetic_water_testing_data.csv")
 
 # Check if the CSV file exists before loading it
 if os.path.exists(file_path):
