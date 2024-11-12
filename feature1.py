@@ -29,9 +29,6 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     )
     return completion.choices[0].message.content
 
-# Load the CSV file
-data = pd.read_csv("/Users/joannele/Downloads/updated_synthetic_water_testing_data.csv")
-
 st.title("Water Testing Information Hub")
 st.write("Learn about interpreting water testing results! Select your water type, contaminants, and testing method!")
 
@@ -48,8 +45,7 @@ contaminants_options = st.multiselect(
 )
 
 # Filter the dataset based on user inputs
-filtered_data = data[
-    (data["Water Source"] == source_options) ]
+filtered_data = data[(data["Water Source"] == source_options)]
 
 # Further filter by contaminants if specified
 if contaminants_options:
