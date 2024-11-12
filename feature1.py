@@ -6,9 +6,6 @@ from openai import OpenAI
 # Initialize the OpenAI client
 client = OpenAI(api_key="MY_API_KEY_HERE")
 
-# Define the app function to render this feature
-def app():
-
     # Construct the file path using a relative path
     file_path = os.path.join(os.path.dirname(__file__), "data", "updated_synthetic_water_testing_data.csv")
 
