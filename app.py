@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-import M4_Feature_1
+import feature1
 import feature2
 import feature3
 
@@ -30,6 +30,6 @@ selected = option_menu(
 if selected == "Water Testing Information Hub":
     feature3.app()
 elif selected == "Water Quality Testing":
-    M4_Feature_1.app()
+    feature1.app()
 elif selected == "WATER TESTING GUIDE":
     feature2.app()
