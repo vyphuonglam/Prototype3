@@ -3,8 +3,8 @@ import pandas as pd
 import streamlit as st
 from openai import OpenAI
 
-# Initialize the OpenAI client
-client = OpenAI(api_key="MY_API_KEY")
+# Initialize the OpenAI client with API key from st.secrets
+client = OpenAI(api_key=st.secrets["MY_API_KEY"])
 
 # Define the app function
 def app():
