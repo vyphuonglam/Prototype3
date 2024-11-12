@@ -6,17 +6,19 @@ from openai import OpenAI
 # Initialize the OpenAI client
 client = OpenAI(api_key="MY_API_KEY_HERE")
 
-# Construct the file path using a relative path
-file_path = os.path.join(os.path.dirname(__file__), "data", "updated_synthetic_water_testing_data.csv")
+# Define the app function to render this feature
+def app():
+    # Construct the file path using a relative path
+    file_path = os.path.join(os.path.dirname(__file__), "data", "updated_synthetic_water_testing_data.csv")
 
-# Check if the CSV file exists before loading it
-if os.path.exists(file_path):
-    # Load the CSV data
-    data = pd.read_csv(file_path)
-else:
-    # Display an error message in Streamlit if the file is not found
-    st.error(f"Data file not found at path: {file_path}")
-    data = pd.DataFrame()  # Empty DataFrame as a fallback
+    # Check if the CSV file exists before loading it
+    if os.path.exists(file_path):
+        # Load the CSV data
+        data = pd.read_csv(file_path)
+    else:
+        # Display an error message in Streamlit if the file is not found
+        st.error(f"Data file not found at path: {file_path}")
+        data = pd.DataFrame()  # Empty DataFrame as a fallback
 
 # Function to get completion from OpenAI API
 def get_completion(prompt, model="gpt-3.5-turbo"):
