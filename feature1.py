@@ -32,7 +32,7 @@ def app():
         return completion.choices[0].message.content
 
     st.title("Water Testing Information Hub")
-    st.write("Learn about interpreting water testing results! Select your water type, contaminants, and testing method!")
+    st.write("Learn about interpreting water testing results! Select your water type and contaminants!")
 
     # Select box for water source
     source_options = st.selectbox(
