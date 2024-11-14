@@ -21,48 +21,32 @@ selected = option_menu(
     }
 )
 
-# Custom CSS for resizing and reducing spacing
+# Custom CSS for select boxes
 st.markdown(
     """
     <style>
-    /* General page styling for font size without altering color */
-    .css-18e3th9 {  /* Streamlit's base container class */
-        padding: 1rem 2rem;  /* Reduce padding */
-    }
-    .stMarkdown h1 {  /* Style for the main header */
-        font-size: 3rem;  /* Increase header size */
-        margin-bottom: 0.5rem;  /* Reduce bottom margin */
-    }
-    .stMarkdown h2, .stMarkdown h3 {  /* Style for sub-headers */
-        font-size: 2rem;
-        margin-bottom: 0.25rem;  /* Reduce margin below headers */
-    }
-
-    /* Select boxes styling */
+    /* Style for the main select box container */
     div[data-baseweb="select"] > div {
-        font-size: 1.25rem;  /* Increase font size of select box */
-        background-color: #E8F1F2 !important;
-        padding: 0.5rem;  /* Adjust padding */
+        font-size: 1.25rem;  /* Increase font size */
+        background-color: #E8F1F2 !important;  /* Light background color for visibility */
+        color: #000000 !important;  /* Ensure text is black for contrast */
+        padding: 0.5rem;  /* Add some padding */
     }
     
-    /* Adjust padding and margin for buttons and other elements */
-    .stButton button {
-        font-size: 1.2rem;  /* Increase button font size */
-        padding: 0.6rem 1.2rem;  /* Adjust button padding */
-        margin-top: 0.5rem;
+    /* Style for the dropdown menu options */
+    div[data-baseweb="select"] ul {
+        background-color: #E8F1F2 !important;  /* Dropdown options background */
+        color: #000000 !important;  /* Dropdown text color */
     }
     
-    /* General text size adjustment for the main content without changing color */
-    .stMarkdown, .css-1v3fvcr {  /* Adjust font sizes for main content */
-        font-size: 1.25rem;  /* General font size */
-        line-height: 1.5;  /* Adjust line height for readability */
+    /* Style for the selected option in the dropdown */
+    div[data-baseweb="select"] span {
+        color: #000000 !important;  /* Selected option text color */
     }
-
     </style>
     """,
     unsafe_allow_html=True
 )
-
 
 # Render the selected page
 if selected == "Water Testing Kit Locator":
