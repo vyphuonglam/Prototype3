@@ -36,13 +36,13 @@ def app():
 
     # Select box for water source
     source_options = st.selectbox(
-        "Select the Water Source",
+        "Select the Water Source!",
         ["Tap water", "Filtered water", "Bottled water", "Rainwater Collection", "Well water", "Ocean water"],
     )
 
     # Multiselect for contaminants
     contaminants_options = st.multiselect(
-        "Select Tested Contaminants!",
+        "Select the tested Contaminants!",
         ["Lead (ppb)", "Chlorine (ppm)", "Nitrates/Nitrites (ppm)", "Bacteria (e.g., E. coli)", "Pesticides (ppm)", "Herbicides (ppm)"]
     )
 
