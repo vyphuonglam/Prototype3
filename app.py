@@ -24,7 +24,23 @@ selected = option_menu(
     }
 )
 
-
+# Custom CSS for select boxes
+st.markdown(
+    """
+    <style>
+    /* Style select boxes specifically */
+    .stSelectbox {
+        background-color: #E8F1F2;  /* Change this color to your desired background color */
+        color: #ade8f4;  /* Text color for the select box */
+    }
+    /* Style dropdown options */
+    .stSelectbox > div[role="listbox"] {
+        background-color: #E8F1F2;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Render the selected page
 if selected == "Water Testing Kit Locator":
