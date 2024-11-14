@@ -41,7 +41,7 @@ st.markdown(
     /* Select boxes styling */
     div[data-baseweb="select"] > div {
         font-size: 1.25rem;  /* Increase font size of select box */
-        background-color: #E8F1F2 !important;
+        background-color: #006494 !important;
         padding: 0.5rem;  /* Adjust padding */
     }
     
