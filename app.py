@@ -27,9 +27,9 @@ selected = option_menu(
 
 
 # Render the selected page
-if selected == "Water Testing Information Hub":
+if selected == "Water Testing Kit Locator":
     feature3.app()
 elif selected == "Water Quality Testing":
     feature1.app()
-elif selected == "WATER TESTING GUIDE":
+elif selected == "Water Testing Guide":
     feature2.app()
