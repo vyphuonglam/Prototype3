@@ -29,19 +29,19 @@ st.markdown(
     div[data-baseweb="select"] > div {
         font-size: 1.25rem;  /* Increase font size */
         background-color: #E8F1F2 !important;  /* Light background color for visibility */
-        color: #000000 !important;  /* Ensure text is black for contrast */
+        color: #13293D !important;  /* Ensure text is black for contrast */
         padding: 0.5rem;  /* Add some padding */
     }
     
     /* Style for the dropdown menu options */
     div[data-baseweb="select"] ul {
         background-color: #E8F1F2 !important;  /* Dropdown options background */
-        color: #000000 !important;  /* Dropdown text color */
+        color: #13293D !important;  /* Dropdown text color */
     }
     
     /* Style for the selected option in the dropdown */
     div[data-baseweb="select"] span {
-        color: #000000 !important;  /* Selected option text color */
+        color: #13293D !important;  /* Selected option text color */
     }
     </style>
     """,
