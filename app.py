@@ -21,33 +21,6 @@ selected = option_menu(
     }
 )
 
-# Custom CSS for select boxes
-st.markdown(
-    """
-    <style>
-    /* Style for the main select box container */
-    div[data-baseweb="select"] > div {
-        font-size: 1.25rem;  /* Increase font size */
-        background-color: #E8F1F2 !important;  /* Light background color for visibility */
-        color: #13293D !important;  /* Ensure text is black for contrast */
-        padding: 0.5rem;  /* Add some padding */
-    }
-    
-    /* Style for the dropdown menu options */
-    div[data-baseweb="select"] ul {
-        background-color: #E8F1F2 !important;  /* Dropdown options background */
-        color: #13293D !important;  /* Dropdown text color */
-    }
-    
-    /* Style for the selected option in the dropdown */
-    div[data-baseweb="select"] span {
-        color: #13293D !important;  /* Selected option text color */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # Render the selected page
 if selected == "Water Testing Kit Locator":
     feature3.app()
