@@ -31,18 +31,18 @@ def app():
         )
         return completion.choices[0].message.content
 
-    st.title("Water Testing Information Hub")
-    st.write("Learn about interpreting water testing results! Select your water type and contaminants!")
+    st.title("Water Quality Information Hub")
+    st.write("Learn about interpreting water testing results! Select the water type and contaminants!")
 
     # Select box for water source
     source_options = st.selectbox(
-        "What type is the Water Source?",
+        "Select the Water Source",
         ["Tap water", "Filtered water", "Bottled water", "Rainwater Collection", "Well water", "Ocean water"],
     )
 
     # Multiselect for contaminants
     contaminants_options = st.multiselect(
-        "What contaminants are you testing for?",
+        "Select Tested Contaminants!",
         ["Lead (ppb)", "Chlorine (ppm)", "Nitrates/Nitrites (ppm)", "Bacteria (e.g., E. coli)", "Pesticides (ppm)", "Herbicides (ppm)"]
     )
 
