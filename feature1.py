@@ -31,8 +31,8 @@ def app():
         )
         return completion.choices[0].message.content
 
-    st.title("Water Quality Information Hub")
-    st.write("Learn about interpreting water testing results! Select the water type and contaminants!")
+    st.title("Water Quality Interpreter Hub")
+    st.write("Learn about the interpretation of your water testing results! Select the water type and contaminants!")
 
     # Select box for water source
     source_options = st.selectbox(
