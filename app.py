@@ -25,7 +25,7 @@ selected = option_menu(
 st.markdown(
     """
     <style>
-    /* General page styling for font size */
+    /* General page styling for font size without altering color */
     .css-18e3th9 {  /* Streamlit's base container class */
         padding: 1rem 2rem;  /* Reduce padding */
     }
@@ -41,7 +41,7 @@ st.markdown(
     /* Select boxes styling */
     div[data-baseweb="select"] > div {
         font-size: 1.25rem;  /* Increase font size of select box */
-        background-color: #006494 !important;
+        background-color: #E8F1F2 !important;
         padding: 0.5rem;  /* Adjust padding */
     }
     
@@ -52,7 +52,7 @@ st.markdown(
         margin-top: 0.5rem;
     }
     
-    /* General text size adjustment for the main content */
+    /* General text size adjustment for the main content without changing color */
     .stMarkdown, .css-1v3fvcr {  /* Adjust font sizes for main content */
         font-size: 1.25rem;  /* General font size */
         line-height: 1.5;  /* Adjust line height for readability */
@@ -62,6 +62,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 # Render the selected page
 if selected == "Water Testing Kit Locator":
