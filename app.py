@@ -28,14 +28,15 @@ selected = option_menu(
 st.markdown(
     """
     <style>
-    /* Style select boxes specifically */
-    .stSelectbox {
-        background-color: #E8F1F2;  /* Change this color to your desired background color */
-        color: #ade8f4;  /* Text color for the select box */
+    /* Select boxes styling */
+    div[data-baseweb="select"] > div {
+        background-color: #E8F1F2 !important;  /* Background color for the select box */
+        color: #333333 !important;  /* Text color */
     }
-    /* Style dropdown options */
-    .stSelectbox > div[role="listbox"] {
-        background-color: #E8F1F2;
+    
+    /* Dropdown menu options */
+    div[data-baseweb="select"] > div > ul {
+        background-color: #E8F1F2 !important;
     }
     </style>
     """,
