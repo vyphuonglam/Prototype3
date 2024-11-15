@@ -12,9 +12,13 @@ zip_code = st.text_input("Enter your zip code to find the nearest water testing 
 
 # Load Target and Walmart locations data with specified encoding
 try:
+    # Define GitHub raw URLs for the CSV files
+    target_url = "https://raw.githubusercontent.com/vyphuonglam/Prototype3/main/data/target.csv"
+    walmart_url = "https://raw.githubusercontent.com/vyphuonglam/Prototype3/main/data/walmart.csv"
+    
     # Read the CSV files with ISO-8859-1 encoding to handle special characters
-    target_locations = pd.read_csv("target.csv", encoding="ISO-8859-1")
-    walmart_locations = pd.read_csv("walmart.csv", encoding="ISO-8859-1")
+    target_locations = pd.read_csv(target_url, encoding="ISO-8859-1")
+    walmart_locations = pd.read_csv(walmart_url, encoding="ISO-8859-1")
     
     # Standardize column names for consistency
     target_locations = target_locations.rename(columns={"Address.Latitude": "latitude", "Address.Longitude": "longitude", "Name": "location_name", "Address.Street": "address"})
@@ -24,7 +28,7 @@ try:
     if 'address' not in walmart_locations.columns:
         walmart_locations['address'] = "Address not available"
 
-     # If 'address' column is missing in Target data, add a placeholder address
+    # If 'address' column is missing in Target data, add a placeholder address
     if 'address' not in target_locations.columns:
         target_locations['address'] = "Address not available"    
     
