@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from geopy.geocoders import Nominatim
 import pydeck as pdk
+import os
 
 # Title and subtitle
 st.title("Water Testing Information Hub")
@@ -12,13 +13,13 @@ zip_code = st.text_input("Enter your zip code to find the nearest water testing 
 
 # Load Target and Walmart locations data with specified encoding
 try:
-    # Define GitHub raw URLs for the CSV files
-    target_url = "https://raw.githubusercontent.com/vyphuonglam/Prototype3/main/data/target.csv"
-    walmart_url = "https://raw.githubusercontent.com/vyphuonglam/Prototype3/main/data/walmart.csv"
+    # Define local paths to the CSV files
+    target_path = os.path.join("data", "target.csv")
+    walmart_path = os.path.join("data", "walmart.csv")
     
     # Read the CSV files with ISO-8859-1 encoding to handle special characters
-    target_locations = pd.read_csv(target_url, encoding="ISO-8859-1")
-    walmart_locations = pd.read_csv(walmart_url, encoding="ISO-8859-1")
+    target_locations = pd.read_csv(target_path, encoding="ISO-8859-1")
+    walmart_locations = pd.read_csv(walmart_path, encoding="ISO-8859-1")
     
     # Standardize column names for consistency
     target_locations = target_locations.rename(columns={"Address.Latitude": "latitude", "Address.Longitude": "longitude", "Name": "location_name", "Address.Street": "address"})
