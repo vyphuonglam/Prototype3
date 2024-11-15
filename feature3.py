@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 from geopy.geocoders import Nominatim
 import pydeck as pdk
 
@@ -10,11 +11,15 @@ st.write("Welcome to the Water Testing Information Hub!")
 # User input for zip code
 zip_code = st.text_input("Enter your zip code to find the nearest water testing kit location:")
 
+# Define paths to the target and Walmart CSV files within the data folder
+target_file_path = os.path.join(os.path.dirname(__file__), "data", "target.csv")
+walmart_file_path = os.path.join(os.path.dirname(__file__), "data", "walmart.csv")
+
 # Load Target and Walmart locations data with specified encoding
 try:
     # Read the CSV files with ISO-8859-1 encoding to handle special characters
-    target_locations = pd.read_csv("target.csv", encoding="ISO-8859-1")
-    walmart_locations = pd.read_csv("walmart.csv", encoding="ISO-8859-1")
+    target_locations = pd.read_csv(target_file_path, encoding="ISO-8859-1")
+    walmart_locations = pd.read_csv(walmart_file_path, encoding="ISO-8859-1")
     
     # Standardize column names for consistency
     target_locations = target_locations.rename(columns={"Address.Latitude": "latitude", "Address.Longitude": "longitude", "Name": "location_name", "Address.Street": "address"})
@@ -24,7 +29,7 @@ try:
     if 'address' not in walmart_locations.columns:
         walmart_locations['address'] = "Address not available"
 
-     # If 'address' column is missing in Target data, add a placeholder address
+    # If 'address' column is missing in Target data, add a placeholder address
     if 'address' not in target_locations.columns:
         target_locations['address'] = "Address not available"    
     
