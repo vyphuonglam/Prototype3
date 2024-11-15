@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
+import os
 from geopy.geocoders import Nominatim
 import pydeck as pdk
-import os
 
 # Title and subtitle
 st.title("Water Testing Information Hub")
@@ -11,34 +11,36 @@ st.write("Welcome to the Water Testing Information Hub!")
 # User input for zip code
 zip_code = st.text_input("Enter your zip code to find the nearest water testing kit location:")
 
+# Construct file paths using relative paths
+target_file_path = os.path.join(os.path.dirname(__file__), "data", "target.csv")
+walmart_file_path = os.path.join(os.path.dirname(__file__), "data", "walmart.csv")
+
 # Load Target and Walmart locations data with specified encoding
 try:
-    # Define local paths to the CSV files
-    target_path = os.path.join("data", "target.csv")
-    walmart_path = os.path.join("data", "walmart.csv")
-    
-    # Read the CSV files with ISO-8859-1 encoding to handle special characters
-    target_locations = pd.read_csv(target_path, encoding="ISO-8859-1")
-    walmart_locations = pd.read_csv(walmart_path, encoding="ISO-8859-1")
-    
-    # Standardize column names for consistency
-    target_locations = target_locations.rename(columns={"Address.Latitude": "latitude", "Address.Longitude": "longitude", "Name": "location_name", "Address.Street": "address"})
-    walmart_locations = walmart_locations.rename(columns={"latitude": "latitude", "longitude": "longitude", "name": "location_name"})
-    
-    # If 'address' column is missing in Walmart data, add a placeholder address
-    if 'address' not in walmart_locations.columns:
-        walmart_locations['address'] = "Address not available"
+    # Check if the CSV files exist before loading them
+    if os.path.exists(target_file_path) and os.path.exists(walmart_file_path):
+        # Read the CSV files with ISO-8859-1 encoding to handle special characters
+        target_locations = pd.read_csv(target_file_path, encoding="ISO-8859-1")
+        walmart_locations = pd.read_csv(walmart_file_path, encoding="ISO-8859-1")
 
-    # If 'address' column is missing in Target data, add a placeholder address
-    if 'address' not in target_locations.columns:
-        target_locations['address'] = "Address not available"    
-    
-    # Concatenate Target and Walmart locations into a single DataFrame
-    water_testing_locations = pd.concat([target_locations, walmart_locations], ignore_index=True)
-    
-except FileNotFoundError as e:
-    st.error(f"Error loading store location data: {e}")
-    st.stop()  # Stop further execution if files are not found
+        # Standardize column names for consistency
+        target_locations = target_locations.rename(columns={"Address.Latitude": "latitude", "Address.Longitude": "longitude", "Name": "location_name", "Address.Street": "address"})
+        walmart_locations = walmart_locations.rename(columns={"latitude": "latitude", "longitude": "longitude", "name": "location_name"})
+
+        # If 'address' column is missing in Walmart data, add a placeholder address
+        if 'address' not in walmart_locations.columns:
+            walmart_locations['address'] = "Address not available"
+
+        # If 'address' column is missing in Target data, add a placeholder address
+        if 'address' not in target_locations.columns:
+            target_locations['address'] = "Address not available"    
+
+        # Concatenate Target and Walmart locations into a single DataFrame
+        water_testing_locations = pd.concat([target_locations, walmart_locations], ignore_index=True)
+    else:
+        st.error("Error: One or both data files are missing in the 'data' folder.")
+        st.stop()  # Stop execution if files are not found
+
 except UnicodeDecodeError as e:
     st.error(f"Encoding error loading store location data: {e}")
     st.stop()
