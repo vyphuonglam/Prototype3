@@ -14,7 +14,7 @@ zip_code = st.text_input("Enter your zip code to find the nearest water testing 
 try:
     # Read the CSV files with ISO-8859-1 encoding to handle special characters
     target_locations = pd.read_csv("target.csv", encoding="ISO-8859-1")
-    walmart_locations = pd.read_csv("walmartstreamlit run feature3.py.csv", encoding="ISO-8859-1")
+    walmart_locations = pd.read_csv("walmart.csv", encoding="ISO-8859-1")
     
     # Standardize column names for consistency
     target_locations = target_locations.rename(columns={"Address.Latitude": "latitude", "Address.Longitude": "longitude", "Name": "location_name", "Address.Street": "address"})
