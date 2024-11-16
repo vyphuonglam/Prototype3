@@ -13,12 +13,12 @@ from pathlib import Path
 
 
 def app():
-    st.title("WATER TESTING GUIDE")
+    st.title("Water Testing Guide")
     st.write("Welcome to WATER TESTING GUIDE")
 
 
     # Initialize the OpenAI client
-    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    client = OpenAI(api_key="OPENAI_API_KEY")
 
 
 
@@ -62,7 +62,8 @@ def app():
 
     # Title of the app
     st.title("DIY Water Quality Testing Guide")
-
+    language = "English"  # Only English is supported
+    lang_code = 'en'
     # Dropdown menu for selecting the test type
     test_options = [
         "Select a test",
@@ -77,10 +78,39 @@ def app():
     if selected_test == "House Line Test":
         st.subheader("House Line Test")
         display_image("house1.png")
-        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform house line test that's easy to follow.", model="gpt-3.5-turbo")
-        st.write(guided_instructions)
+        
+
+# Translate the English text to Spanish
+        english_text = "Follow these steps to perform the House Line Test"
+       
+        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform house line test that's easy to follow for someone who has never done this test before. Add some information that can encourage users to perform this test. Include clearly separated steps.", model="gpt-3.5-turbo")
+        
          # Text-to-speech conversion
-        tts = gTTS(text=guided_instructions, lang='en')
+        steps = guided_instructions.split('\n')  # Assuming each step is on a new line
+    
+        st.write("Follow these steps to perform the House Line Test:")
+        if "guided_instructions" not in st.session_state:
+            st.session_state.guided_instructions = guided_instructions
+            st.session_state.steps = guided_instructions.split('\n')
+            st.session_state.checked_steps = [False] * len(st.session_state.steps)
+
+    # Check and adjust the list length to match the steps if needed
+        if len(st.session_state.checked_steps) != len(st.session_state.steps):
+            st.session_state.checked_steps = [False] * len(st.session_state.steps)
+
+    # Display each step with a checkbox
+        for idx, step in enumerate(st.session_state.steps):
+            if step.strip():  # Ensure step is not empty
+                st.session_state.checked_steps[idx] = st.checkbox(
+                    f"{step}",
+                    value=st.session_state.checked_steps[idx],
+                    key=f"step_{idx}"
+                )
+        
+    # Debugging: Show the current state of checkboxes (optional)
+    
+      
+        tts = gTTS(text=guided_instructions, lang=lang_code)
         tts.save("guided_instructions.mp3")
 
         # Display audio player in Streamlit
@@ -96,10 +126,29 @@ def app():
         display_image("pin2.png")
         display_image("pin3.png")
         display_image("pin4.png")
-        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform the pin test that's easy to follow.",model="gpt-3.5-turbo")
-        st.write(guided_instructions)
+        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform the pin test that's easy to follow for someone who has never done this test before. Add some information that can encourage users to perform this test. Include clearly separated steps.",model="gpt-3.5-turbo")
+        steps = guided_instructions.split('\n')  # Assuming each step is on a new line
+    
+        st.write("Follow these steps to perform the Pin Test:")
+        if "pin_test_instructions" not in st.session_state:
+            st.session_state.pin_test_instructions = guided_instructions
+            st.session_state.pin_test_steps = guided_instructions.split('\n')
+            st.session_state.pin_test_checked = [False] * len(st.session_state.pin_test_steps)
+
+    # Check and adjust the list length to match the steps if needed
+        if len(st.session_state.pin_test_checked) != len(st.session_state.pin_test_steps):
+            st.session_state.pin_test_checked= [False] * len(st.session_state.pin_test_steps)
+
+    # Display each step with a checkbox
+        for idx, step in enumerate(st.session_state.pin_test_steps):
+            if step.strip():  # Ensure step is not empty
+                st.session_state.pin_test_checked[idx] = st.checkbox(
+                    f"{step}",
+                    value=st.session_state.pin_test_checked[idx],
+                    key=f"pin_step_{idx}"
+                )
         # Text-to-speech conversion
-        tts = gTTS(text=guided_instructions, lang='en')
+        tts = gTTS(text=guided_instructions, lang= lang_code)
         tts.save("guided_instructions.mp3")
 
         # Display audio player in Streamlit
@@ -114,10 +163,29 @@ def app():
         st.subheader("Toilet Leak Test")
         display_image("toilet3.png")
         display_image("toilet4.png")
-        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform the toilet leak test that's easy to follow.",model="gpt-3.5-turbo")
-        st.write(guided_instructions)
+        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform the toilet leak test that's easy to follow for someone who has never done this test before. Add some information that can encourage users to perform this test. Include clearly separated steps. ",model="gpt-3.5-turbo")
+        steps = guided_instructions.split('\n')  # Assuming each step is on a new line
+    
+        st.write("Follow these steps to perform the Toilet Leak Test:")
+        if "toilet_leak_instructions" not in st.session_state:
+            st.session_state.toilet_leak_instructions = guided_instructions
+            st.session_state.toilet_leak_steps = guided_instructions.split('\n')
+            st.session_state.toilet_leak_checked = [False] * len(st.session_state.toilet_leak_steps)
+
+    # Check and adjust the list length to match the steps if needed
+        if len(st.session_state.toilet_leak_checked) != len(st.session_state.toilet_leak_steps):
+            st.session_state.toilet_leak_checked = [False] * len(st.session_state.toilet_leak_steps)
+
+    # Display each step with a checkbox
+        for idx, step in enumerate(st.session_state.toilet_leak_steps):
+            if step.strip():  # Ensure step is not empty
+                st.session_state.toilet_leak_checked[idx] = st.checkbox(
+                    f"{step}",
+                    value=st.session_state.toilet_leak_checked[idx],
+                    key=f"toilet_step_{idx}"
+                )
         # Text-to-speech conversion
-        tts = gTTS(text=guided_instructions, lang='en')
+        tts = gTTS(text=guided_instructions, lang= lang_code)
         tts.save("guided_instructions.mp3")
 
         # Display audio player in Streamlit
@@ -130,10 +198,28 @@ def app():
         os.remove("guided_instructions.mp3")
     elif selected_test == "Flow Rate Measurement":
         st.subheader("Flow Rate Measurement")
-        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform flow rate measurement that's easy to follow.",model="gpt-3.5-turbo")
-        st.write(guided_instructions)
-        # Text-to-speech conversion
-        tts = gTTS(text=guided_instructions, lang='en')
+        guided_instructions = get_guided_instructions(pdf_text, "Instruct user to perform flow rate measurement that's easy to follow for someone who has never done this test before. Add some information that can encourage users to perform this test. Include clearly separated steps. ",model="gpt-3.5-turbo")
+        steps = guided_instructions.split('\n')  # Assuming each step is on a new line
+    
+        st.write("Follow these steps to perform the Flow Rate Measurment Test:")
+        if "flow_rate_instructions" not in st.session_state:
+            st.session_state.flow_rate_instructions = guided_instructions
+            st.session_state.flow_rate_steps = guided_instructions.split('\n')
+            st.session_state.flow_rate_checked = [False] * len(st.session_state.flow_rate_steps)
+
+    # Check and adjust the list length to match the steps if needed
+        if len(st.session_state.flow_rate_checked) != len(st.session_state.flow_rate_steps):
+            st.session_state.flow_rate_checked = [False] * len(st.session_state.flow_rate_steps)
+
+    # Display each step with a checkbox
+        for idx, step in enumerate(st.session_state.flow_rate_steps):
+            if step.strip():  # Ensure step is not empty
+                st.session_state.flow_rate_checked[idx] = st.checkbox(
+                    f"{step}",
+                    value=st.session_state.flow_rate_checked[idx],
+                    key=f"flow_step_{idx}"
+                )
+        tts = gTTS(text=guided_instructions, lang= lang_code)
         tts.save("guided_instructions.mp3")
 
         # Display audio player in Streamlit
@@ -146,4 +232,9 @@ def app():
         os.remove("guided_instructions.mp3")
     else:
         st.write("Please select a test to see the instructions.")
+
+app()
+
+
+
 
