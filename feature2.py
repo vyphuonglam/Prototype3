@@ -77,7 +77,7 @@ def app():
 
 
     # Initialize the OpenAI client
-    client = OpenAI(api_key="OPENAI_API_KEY")
+    client = OpenAI(api_key=st.secrets["MY_API_KEY"])
 
 
 
