@@ -69,42 +69,31 @@ def app():
         unsafe_allow_html=True
     )
 
-    # Construct the file path using a relative path
-    file_path = os.path.join(os.path.dirname(__file__), "data", "updated_synthetic_water_testing_data.csv")
+    # Load the dataset
+    file_path = "updated_synthetic_water_testing_data.csv"  # Update to reflect the correct file location
 
-    # Check if the CSV file exists before loading it
+    # Check if the file exists and load it
     if os.path.exists(file_path):
-        # Load the CSV data
         data = pd.read_csv(file_path)
     else:
-        # Display an error message in Streamlit if the file is not found
-        st.error(f"Data file not found at path: {file_path}")
-        data = pd.DataFrame()  # Empty DataFrame as a fallback
-        return
+        st.error(f"Data file not found! Expected path: {file_path}")
+        return  # Exit the function if the file is not found
 
     # Streamlit components
     st.title("Water Quality Analyzer Hub")
     st.write("Learn about the interpretation of your water testing results! Select the water type and contaminants!")
 
     # Water Source Selection
-    water_sources = ["Select Water Source"] + list(data["Water Source"].unique())
     source_options = st.selectbox(
         "Select the Water Source!",
-        water_sources,
-        key="water_source_selectbox"  # Unique key for the selectbox
+        data["Water Source"].unique()
     )
-
-    # Validate Water Source Selection
-    if source_options == "Select Water Source":
-        st.warning("Please select a valid water source!")
-        return
 
     # Contaminant Selection
     contaminants_options = st.multiselect(
         "Select the tested Contaminants!",
         ["Lead (ppb)", "Chlorine (ppm)", "Nitrates/Nitrites (ppm)", 
-         "Bacteria (e.g., E. coli)", "Pesticides (ppm)", "Herbicides (ppm)"],
-        key="contaminants_multiselect"  # Unique key for the multiselect
+         "Bacteria (e.g., E. coli)", "Pesticides (ppm)", "Herbicides (ppm)"]
     )
 
     # Filter the dataset
@@ -120,11 +109,8 @@ def app():
 
     # Chatbox and analysis
     with st.form(key="water_testing_chat"):
-        user_prompt = st.text_input(
-            "Input your water testing results (e.g., 'Chlorine level: 7 ppm, Nitrate level: 5 ppm')",
-            key="user_prompt_input"  # Unique key for the text input
-        )
-        submitted = st.form_submit_button("Submit", key="form_submit_button")
+        user_prompt = st.text_input("Input your water testing results (e.g., 'Chlorine level: 7 ppm, Nitrate level: 5 ppm')")
+        submitted = st.form_submit_button("Submit")
 
         if submitted:
             # Safe levels for reference
@@ -143,13 +129,14 @@ def app():
                 key_value = item.split(":")
                 if len(key_value) == 2:
                     input_name, input_value = key_value[0].strip(), key_value[1].strip()
+                    # Match the input name to the exact contaminant name in contaminants_options
                     contaminant = next(
                         (c for c in contaminants_options if input_name.lower() in c.lower()), 
                         None
                     )
                     if contaminant:
                         try:
-                            user_results[contaminant] = float(input_value.split()[0])
+                            user_results[contaminant] = float(input_value.split()[0])  # Extract numeric value
                         except ValueError:
                             st.error(f"Invalid numeric value for {input_name}. Please enter a valid number.")
 
@@ -162,10 +149,10 @@ def app():
 
             for contaminant in contaminants_options:
                 safe_value = safe_levels.get(contaminant, 0)
-                user_value = user_results.get(contaminant, None)
+                user_value = user_results.get(contaminant, None)  # If not found, it will remain None
                 if user_value is None:
                     st.warning(f"User input missing for {contaminant}. Defaulting to 0.")
-                    user_value = 0
+                    user_value = 0  # Default to 0 if user input is missing
                 contaminant_data["Contaminant"].append(contaminant)
                 contaminant_data["Safe Level"].append(safe_value)
                 contaminant_data["User Level"].append(user_value)
@@ -178,16 +165,16 @@ def app():
             # Create the bar chart with altair
             st.write("Comparison of Safe Levels vs User Levels")
             chart = alt.Chart(chart_data).mark_bar().encode(
-                x=alt.X("Contaminant:N", title="Contaminant", axis=alt.Axis(labelAngle=0)),
-                y=alt.Y("Value:Q", title="Level (ppm or ppb)"),
-                color=alt.Color("Level Type:N", legend=alt.Legend(title="Level Type")),
-                column=alt.Column("Level Type:N", title=None, spacing=10)
+                x=alt.X("Contaminant:N", title="Contaminant", axis=alt.Axis(labelAngle=0)),  # Contaminants on X-axis
+                y=alt.Y("Value:Q", title="Level (ppm or ppb)"),  # Levels on Y-axis
+                color=alt.Color("Level Type:N", legend=alt.Legend(title="Level Type")),  # Separate colors for Safe/User levels
+                column=alt.Column("Level Type:N", title=None, spacing=10)  # Reduce spacing for compactness
             ).properties(
-                width=200,
-                height=200
+                width=200,  # Width of each bar group
+                height=200  # Reduce height for better fit
             )
 
-            st.altair_chart(chart, use_container_width=False)
+            st.altair_chart(chart, use_container_width=False)  # Ensures it fits within the Streamlit container
 
             # Generate response using OpenAI
             full_prompt = f"""
@@ -198,6 +185,10 @@ def app():
             1. **Safety Assessment**: Clearly state if the result is "Safe!" or "Dangerous!".
             2. **Explanation**: Briefly explain why the result is considered safe or dangerous, referencing acceptable limits if relevant.
             3. **Next Steps**: If the result is dangerous, provide recommendations for actions the user can take to improve water safety.
+            
+            Additional Information:
+            - Water Source: {source_options}
+            - Contaminants: {', '.join(contaminants_options)}
             """
 
             response = client.chat.completions.create(
@@ -209,10 +200,10 @@ def app():
             )
             completion = response.choices[0].message.content
 
+            # Highlight "Safe" and "Dangerous" with colors
             formatted_response = completion.replace("Safe!", "<span style='color:green;font-weight:bold;'>Safe</span>")
-            formatted_response = formatted_response.replace("Dangerous!", "<span style='color:red;font-weight:bold;'>Dangerous</span>")
+            formatted_response = completion.replace("Dangerous!", "<span style='color:red;font-weight:bold;'>Dangerous</span>")
             st.markdown(formatted_response, unsafe_allow_html=True)
 
 # Run the app
 app()
-
