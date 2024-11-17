@@ -13,7 +13,7 @@ def app():
     st.markdown(
         """
         <style>
-        /* Custom styling (same as provided) */
+        /* Add custom styles here */
         </style>
         """,
         unsafe_allow_html=True
@@ -21,7 +21,6 @@ def app():
 
     # Load the dataset
     file_path = "updated_synthetic_water_testing_data.csv"
-
     if os.path.exists(file_path):
         data = pd.read_csv(file_path)
     else:
@@ -64,10 +63,10 @@ def app():
     # Chatbox for user input
     with st.form(key="water_testing_chat"):
         user_prompt = st.text_input(
-            "Input your water testing results (e.g., 'Chlorine: 7, Lead: 5')",
+            "Input your water testing results (e.g., 'Chlorine level: 7, Nitrate level: 5')",
             key="user_prompt_input"
         )
-        submitted = st.form_submit_button("Submit", key="form_submit_button")
+        submitted = st.form_submit_button(label="Submit", key="form_submit_button")
 
         if submitted:
             # Safe levels reference
@@ -133,3 +132,4 @@ def app():
 
 # Run the app
 app()
+
