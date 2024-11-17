@@ -8,6 +8,66 @@ client = OpenAI(api_key=st.secrets["MY_API_KEY"])
 
 # Define the app function
 def app():
+    st.markdown(
+    """
+    <style>
+    /* Change text color inside the selectbox */
+    div[data-baseweb="select"] > div {
+        color: white;  /* Change this to your preferred color */
+    }
+
+    /* Change background color of the selectbox dropdown options */
+    div[data-baseweb="select"] > div > div {
+        background-color: #247ba0; /* Background color for the dropdown */
+        color: white; /* Text color for the options */
+    }
+
+    <style>
+    /* Style for selectbox text color (selected option) */
+    div[data-baseweb="select"] > div {
+        color: white;  /* Text color for selected option */
+        background-color: #006494;  /* Background color of the selectbox */
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+    /* Style for text_input */
+    input[type="text"] {
+        background-color: #247ba0;  /* Input background color */
+        color: #FFFFFF;  /* Input text color */
+        border: 1px solid #2b6cb0;  /* Optional: Input border color */
+        border-radius: 5px;  /* Optional: Rounding the corners */
+        padding: 8px;  /* Padding inside the input box */
+    }
+     
+
+    /* Style for the placeholder "Choose an option" in the multiselect */
+    div[data-baseweb="select"] .css-14jk2my {
+        color: white;  /* Placeholder text color */
+    }
+
+    /* Style the st.write output boxes */
+    .streamlit-expander {
+        background-color: #e0f7fa;  /* Light cyan background */
+        border-radius: 5px;
+        padding: 10px;
+        color: white;  /* Dark teal text color */
+        font-weight: bold;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional box shadow */
+    }
+
+    /* Style other generic st.write containers */
+    .css-1n76uvr {
+        background-color: #e0f7fa; /* Background color */
+        color: white; /* Text color */
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     # Construct the file path using a relative path
     file_path = os.path.join(os.path.dirname(__file__), "data", "updated_synthetic_water_testing_data.csv")
 
