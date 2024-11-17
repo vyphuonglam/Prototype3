@@ -77,6 +77,7 @@ def app():
 
 
     # Initialize the OpenAI client
+    # Do not change this
     client = OpenAI(api_key=st.secrets["MY_API_KEY"])
 
 
@@ -294,7 +295,6 @@ def app():
     else:
         st.write("Please select a test to see the instructions.")
 
-app()
 
 
 
