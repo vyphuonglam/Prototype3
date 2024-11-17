@@ -13,8 +13,67 @@ from pathlib import Path
 
 
 def app():
-    st.title("Water Testing Guide")
-    st.write("Welcome to WATER TESTING GUIDE")
+    
+    st.markdown(
+    """
+    <style>
+    /* Change text color inside the selectbox */
+    div[data-baseweb="select"] > div {
+        color: white;  /* Change this to your preferred color */
+    }
+
+    /* Change background color of the selectbox dropdown options */
+    div[data-baseweb="select"] > div > div {
+        background-color: #247ba0; /* Background color for the dropdown */
+        color: white; /* Text color for the options */
+    }
+
+    <style>
+    /* Style for selectbox text color (selected option) */
+    div[data-baseweb="select"] > div {
+        color: white;  /* Text color for selected option */
+        background-color: #006494;  /* Background color of the selectbox */
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+    /* Style for text_input */
+    input[type="text"] {
+        background-color: #247ba0;  /* Input background color */
+        color: #FFFFFF;  /* Input text color */
+        border: 1px solid #2b6cb0;  /* Optional: Input border color */
+        border-radius: 5px;  /* Optional: Rounding the corners */
+        padding: 8px;  /* Padding inside the input box */
+    }
+     
+
+    /* Style for the placeholder "Choose an option" in the multiselect */
+    div[data-baseweb="select"] .css-14jk2my {
+        color: white;  /* Placeholder text color */
+    }
+
+    /* Style the st.write output boxes */
+    .streamlit-expander {
+        background-color: #e0f7fa;  /* Light cyan background */
+        border-radius: 5px;
+        padding: 10px;
+        color: white;  /* Dark teal text color */
+        font-weight: bold;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional box shadow */
+    }
+
+    /* Style other generic st.write containers */
+    .css-1n76uvr {
+        background-color: #e0f7fa; /* Background color */
+        color: white; /* Text color */
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
     # Initialize the OpenAI client
@@ -64,11 +123,13 @@ def app():
     st.title("DIY Water Quality Testing Guide")
     language = "English"  # Only English is supported
     lang_code = 'en'
+    st.write("Water is our most precious resource. Climate change and drought can put it at significant risk. Conservation is key to protecting our water supplies. The information contained in the following instructions is based on Valley Water and its contractor’s general experience inspecting homes for water leaks. However, your situation may be unique. Please seek professional advice if you are unsure how to conduct the inspections or install the items.")
+    st.write("To get started, gather tools and find your meter box and follow the instructions below to perform the pin test. This test will help you determine if you have a leak in your house line. All other tests will help identify sources of leaks in your home.")
     # Dropdown menu for selecting the test type
     test_options = [
         "Select a test",
-        "House Line Test",
         "Pin Test",
+        "House Line Test",
         "Toilet Leak Test",
         "Flow Rate Measurement"
     ]
