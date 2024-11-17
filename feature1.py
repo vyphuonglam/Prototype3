@@ -90,7 +90,8 @@ def app():
     water_sources = ["Select Water Source"] + list(data["Water Source"].unique())
     source_options = st.selectbox(
         "Select the Water Source!",
-        water_sources
+        water_sources,
+        key="water_source_selectbox"  # Unique key for the selectbox
     )
 
     # Validate Water Source Selection
@@ -102,7 +103,8 @@ def app():
     contaminants_options = st.multiselect(
         "Select the tested Contaminants!",
         ["Lead (ppb)", "Chlorine (ppm)", "Nitrates/Nitrites (ppm)", 
-         "Bacteria (e.g., E. coli)", "Pesticides (ppm)", "Herbicides (ppm)"]
+         "Bacteria (e.g., E. coli)", "Pesticides (ppm)", "Herbicides (ppm)"],
+        key="contaminants_multiselect"  # Unique key for the multiselect
     )
 
     # Filter the dataset
@@ -118,8 +120,11 @@ def app():
 
     # Chatbox and analysis
     with st.form(key="water_testing_chat"):
-        user_prompt = st.text_input("Input your water testing results (e.g., 'Chlorine level: 7 ppm, Nitrate level: 5 ppm')")
-        submitted = st.form_submit_button("Submit")
+        user_prompt = st.text_input(
+            "Input your water testing results (e.g., 'Chlorine level: 7 ppm, Nitrate level: 5 ppm')",
+            key="user_prompt_input"  # Unique key for the text input
+        )
+        submitted = st.form_submit_button("Submit", key="form_submit_button")
 
         if submitted:
             # Safe levels for reference
@@ -210,3 +215,4 @@ def app():
 
 # Run the app
 app()
+
