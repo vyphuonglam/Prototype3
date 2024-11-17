@@ -13,56 +13,18 @@ def app():
     st.markdown(
         """
         <style>
-        /* Change text color inside the selectbox */
+        /* Style for the dropdown options (inside the selectbox) */
         div[data-baseweb="select"] > div {
-            color: white;  /* Change this to your preferred color */
-        }
-
-        /* Change background color of the selectbox dropdown options */
-        div[data-baseweb="select"] > div > div {
-            background-color: #247ba0; /* Background color for the dropdown */
-            color: white; /* Text color for the options */
-        }
-
-        /* Style for selectbox text color (selected option) */
-        div[data-baseweb="select"] > div {
-            color: white;  /* Text color for selected option */
-            background-color: #006494;  /* Background color of the selectbox */
+            color: black !important;  /* Text color for selected option */
+            background-color: #FFFFFF !important;  /* Background color for the dropdown */
             border-radius: 5px;
             padding: 8px;
         }
 
-        /* Style for text_input */
-        input[type="text"] {
-            background-color: #247ba0;  /* Input background color */
-            color: #FFFFFF;  /* Input text color */
-            border: 1px solid #2b6cb0;  /* Optional: Input border color */
-            border-radius: 5px;  /* Optional: Rounding the corners */
-            padding: 8px;  /* Padding inside the input box */
-        }
-
-        /* Style for the placeholder "Choose an option" in the multiselect */
-        div[data-baseweb="select"] .css-14jk2my {
-            color: white;  /* Placeholder text color */
-        }
-
-        /* Style the st.write output boxes */
-        .streamlit-expander {
-            background-color: #e0f7fa;  /* Light cyan background */
-            border-radius: 5px;
-            padding: 10px;
-            color: white;  /* Dark teal text color */
-            font-weight: bold;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional box shadow */
-        }
-
-        /* Style other generic st.write containers */
-        .css-1n76uvr {
-            background-color: #e0f7fa; /* Background color */
-            color: white; /* Text color */
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
+        /* Style for the selectbox when selected */
+        div[data-baseweb="select"] > div > div {
+            background-color: #006494 !important;  /* Dropdown background color */
+            color: white !important;  /* Text color for selected item */
         }
         </style>
         """,
@@ -72,14 +34,12 @@ def app():
     # Load the dataset
     file_path = "updated_synthetic_water_testing_data.csv"  # Update to reflect the correct file location
 
-    # Check if the file exists and load it
     if os.path.exists(file_path):
         data = pd.read_csv(file_path)
     else:
         st.error(f"Data file not found! Expected path: {file_path}")
-        return  # Exit the function if the file is not found
+        return
 
-    # Streamlit components
     st.title("Water Quality Analyzer Hub")
     st.write("Learn about the interpretation of your water testing results! Select the water type and contaminants!")
 
@@ -103,13 +63,12 @@ def app():
     if contaminants_options:
         filtered_data = filtered_data.dropna(subset=contaminants_options)
 
-    # Show filtered data warning if empty
     if filtered_data.empty:
         st.warning("No data available for the selected criteria.")
 
     # Chatbox and analysis
     with st.form(key="water_testing_chat"):
-        user_prompt = st.text_input("Input your water testing results (e.g., 'Chlorine level: 7, Nitrate level: 5')")
+        user_prompt = st.text_input("Input your water testing results (e.g., 'Chlorine level: 7 ppm, Nitrate level: 5 ppm')")
         submitted = st.form_submit_button("Submit")
 
         if submitted:
@@ -202,8 +161,4 @@ def app():
 
             # Highlight "Safe" and "Dangerous" with colors
             formatted_response = completion.replace("Safe!", "<span style='color:green;font-weight:bold;'>Safe</span>")
-            formatted_response = completion.replace("Dangerous!", "<span style='color:red;font-weight:bold;'>Dangerous</span>")
-            st.markdown(formatted_response, unsafe_allow_html=True)
-
-# Run the app
-app()
+            formatted_response = formatted_response
