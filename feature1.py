@@ -109,7 +109,7 @@ def app():
 
     # Chatbox and analysis
     with st.form(key="water_testing_chat"):
-        user_prompt = st.text_input("Input your water testing results as follows: (e.g., 'Chlorine: 5, Lead: 5'")
+        user_prompt = st.text_input("Input your water testing results as follows: (e.g., 'Chlorine: 5, Lead: 5')")
         submitted = st.form_submit_button("Submit")
 
         if submitted:
