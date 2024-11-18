@@ -183,9 +183,9 @@ def app():
             audio_bytes = audio_file.read()
             st.audio(audio_bytes, format="audio/ogg")
 
-        # Clean up audio file after use
-        audio_file.close()
-        os.remove("guided_instructions.mp3")
+            # Clean up audio file after use
+            audio_file.close()
+            os.remove("guided_instructions.mp3")
     elif selected_test == "Pin Test":
         st.subheader("Pin Test")
         display_image("pin2.png")
