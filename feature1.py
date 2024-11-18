@@ -20,25 +20,36 @@ def app():
 
         /* Change background color of the selectbox dropdown options */
         div[data-baseweb="select"] > div > div {
-            background-color: #247ba0; /* Background color for the dropdown */
+            background-color: transparent; /* Background color for the dropdown */
             color: white; /* Text color for the options */
         }
 
         /* Style for selectbox text color (selected option) */
         div[data-baseweb="select"] > div {
             color: white;  /* Text color for selected option */
-            background-color: #247BA0;  /* Background color of the selectbox */
+            background-color: transparent;  /* Background color of the selectbox */
             border-radius: 5px;
             padding: 0px;
         }
 
-        /* Style for text_input */
+         /* Style for text_input */
         input[type="text"] {
-            background-color: #247ba0;  /* Input background color */
+            background-color: transparent;  /* Input background color */
             color: #FFFFFF;  /* Input text color */
             border: 1px solid #2b6cb0;  /* Optional: Input border color */
             border-radius: 5px;  /* Optional: Rounding the corners */
             padding: 8px;  /* Padding inside the input box */
+        }
+         /* Style for Streamlit button */
+        div.stButton > button {
+            background-color: #006494;  /* Make button background transparent */
+            color: #FFFFFF;  /* Set button text color to white */
+            border: 1px solid #2b6cb0;  /* Add a blue border */
+            border-radius: 5px;  /* Rounded corners */
+            padding: 8px 16px;  /* Add internal padding */
+            font-size: 16px;  /* Set font size */
+            cursor: pointer;  /* Change cursor to pointer on hover */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth hover effect */
         }
 
         /* Style for the placeholder "Choose an option" in the multiselect */
