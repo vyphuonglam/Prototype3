@@ -171,16 +171,17 @@ def app():
         
     # Debugging: Show the current state of checkboxes (optional)
     
-      
+        
         tts = gTTS(text=guided_instructions, lang=lang_code)
         tts.save("guided_instructions.mp3")
         audio = AudioSegment.from_mp3("guided_instructions.mp3")
         audio.export("guided_instructions.ogg", format="ogg")
 
         # Display audio player in Streamlit
-        audio_file = open("guided_instructions.ogg", "rb")
-        audio_bytes = audio_file.read()
-        st.audio(audio_bytes, format="audio/ogg")
+        if st.button("Play Audio"):
+            audio_file = open("guided_instructions.ogg", "rb")
+            audio_bytes = audio_file.read()
+            st.audio(audio_bytes, format="audio/ogg")
 
         # Clean up audio file after use
         audio_file.close()
