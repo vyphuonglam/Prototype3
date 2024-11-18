@@ -173,19 +173,20 @@ def app():
     
         
         tts = gTTS(text=guided_instructions, lang=lang_code)
-        tts.save("guided_instructions.mp3")
-        audio = AudioSegment.from_mp3("guided_instructions.mp3")
-        audio.export("guided_instructions.ogg", format="ogg")
-
-        # Display audio player in Streamlit
-        if st.button("Play Audio"):
-            audio_file = open("guided_instructions.ogg", "rb")
-            audio_bytes = audio_file.read()
-            st.audio(audio_bytes, format="audio/ogg")
-
-            # Clean up audio file after use
-            audio_file.close()
-            os.remove("guided_instructions.mp3")
+        audio_file_path = "guided_instructions.mp3"
+        tts.save(audio_file_path)
+        # Use HTML <audio> tag for playback
+        st.markdown(
+            f"""
+            <h3>Play the audio below:</h3>
+            <audio controls>
+                <source src="{audio_file_path}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            """,
+            unsafe_allow_html=True,
+        )
+        
     elif selected_test == "Pin Test":
         st.subheader("Pin Test")
         display_image("pin2.png")
