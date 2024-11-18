@@ -172,24 +172,17 @@ def app():
     # Debugging: Show the current state of checkboxes (optional)
     
         
-        tts = gTTS(text=guided_instructions, lang="en")
+        tts = gTTS(text=guided_instructions, lang= lang_code)
         tts.save("guided_instructions.mp3")
-        # Use HTML <audio> tag for playback
-        st.markdown(
-            f"""
-            <h3>Play the audio below:</h3>
-            <audio controls>
-                <source src="guided_instructions.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            """,
-            unsafe_allow_html=True,
-        )
-        file_path = "guided_instructions.mp3"
-        if os.path.exists(file_path):
-            print(f"File size: {os.path.getsize(file_path)} bytes")
-        else:
-            print("File not found!")
+
+        # Display audio player in Streamlit
+        audio_file = open("guided_instructions.mp3", "rb")
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format="audio/mp3")
+
+        # Clean up audio file after use
+        audio_file.close()
+        os.remove("guided_instructions.mp3")
                 
     elif selected_test == "Pin Test":
         st.subheader("Pin Test")
