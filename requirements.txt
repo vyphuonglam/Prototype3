@@ -9,3 +9,4 @@ gtts
 Pillow         # Use Pillow instead of PIL
 streamlit-option-menu
 geopy
+pydub
