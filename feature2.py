@@ -10,7 +10,7 @@ from streamlit_folium import st_folium
 from gtts import gTTS
 from PIL import Image
 from pathlib import Path
-
+from pydub import AudioSegment
 
 def app():
     
@@ -174,11 +174,13 @@ def app():
       
         tts = gTTS(text=guided_instructions, lang=lang_code)
         tts.save("guided_instructions.mp3")
+        audio = AudioSegment.from_mp3("guided_instructions.mp3")
+        audio.export("guided_instructions.ogg", format="ogg")
 
         # Display audio player in Streamlit
-        audio_file = open("guided_instructions.mp3", "rb")
+        audio_file = open("guided_instructions.ogg", "rb")
         audio_bytes = audio_file.read()
-        st.audio(audio_bytes, format="audio/mp3")
+        st.audio(audio_bytes, format="audio/ogg")
 
         # Clean up audio file after use
         audio_file.close()
