@@ -24,7 +24,7 @@ def app():
 
     /* Change background color of the selectbox dropdown options */
     div[data-baseweb="select"] > div > div {
-        background-color: #247ba0; /* Background color for the dropdown */
+        background-color: transparent; /* Background color for the dropdown */
         color: white; /* Text color for the options */
     }
 
@@ -32,14 +32,14 @@ def app():
     /* Style for selectbox text color (selected option) */
     div[data-baseweb="select"] > div {
         color: white;  /* Text color for selected option */
-        background-color: #006494;  /* Background color of the selectbox */
+        background-color: transparent;  /* Background color of the selectbox */
         border-radius: 5px;
         padding: 8px;
     }
 
     /* Style for text_input */
     input[type="text"] {
-        background-color: #247ba0;  /* Input background color */
+        background-color: transparent;  /* Input background color */
         color: #FFFFFF;  /* Input text color */
         border: 1px solid #2b6cb0;  /* Optional: Input border color */
         border-radius: 5px;  /* Optional: Rounding the corners */
