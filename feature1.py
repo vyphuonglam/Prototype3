@@ -27,9 +27,9 @@ def app():
         /* Style for selectbox text color (selected option) */
         div[data-baseweb="select"] > div {
             color: white;  /* Text color for selected option */
-            background-color: #006494;  /* Background color of the selectbox */
+            background-color: #247BA0;  /* Background color of the selectbox */
             border-radius: 5px;
-            padding: 8px;
+            padding: 0px;
         }
 
         /* Style for text_input */
