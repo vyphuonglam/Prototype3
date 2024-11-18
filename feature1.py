@@ -205,5 +205,4 @@ def app():
             formatted_response = completion.replace("Dangerous!", "<span style='color:red;font-weight:bold;'>Dangerous</span>")
             st.markdown(formatted_response, unsafe_allow_html=True)
 
-# Run the app
-app()
+
