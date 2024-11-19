@@ -9,7 +9,7 @@ import feature3
 st.image("AquaTech-removebg-preview.png", width=250)  # Increase image width for prominence
 selected = option_menu(
     menu_title="",
-    options=["Water Testing Kit Locator", "Water Quality Analyzer", "Water Testing Guide"],
+    options=["Water Testing Kit Locator", "Water Testing Guide", "Water Quality Analyzer"],
     icons=["", "", ""],
     menu_icon="",
     default_index=0,
@@ -25,7 +25,9 @@ selected = option_menu(
 # Render the selected page
 if selected == "Water Testing Kit Locator":
     feature3.app()
-elif selected == "Water Quality Analyzer":
-    feature1.app()
 elif selected == "Water Testing Guide":
     feature2.app()
+elif selected == "Water Quality Analyzer":
+    feature1.app()
+
+
