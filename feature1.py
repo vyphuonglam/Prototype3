@@ -20,14 +20,14 @@ def app():
 
         /* Change background color of the selectbox dropdown options */
         div[data-baseweb="select"] > div > div {
-            background-color: transparent; /* Background color for the dropdown */
+            background-color: #247BA0; /* Background color for the dropdown */
             color: white; /* Text color for the options */
         }
 
         /* Style for selectbox text color (selected option) */
         div[data-baseweb="select"] > div {
             color: white;  /* Text color for selected option */
-            background-color: transparent;  /* Background color of the selectbox */
+            background-color: #247BA0;  /* Background color of the selectbox */
             border-radius: 5px;
             padding: 0px;
         }
