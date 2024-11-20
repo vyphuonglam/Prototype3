@@ -67,13 +67,7 @@ def app():
     """,
     unsafe_allow_html=True
 )
-    
-   
-import streamlit as st
-import pandas as pd
-from geopy.geocoders import Nominatim
-import pydeck as pdk
-
+       
 # Title and subtitle
 st.title("Water Testing Information Hub")
 st.write("Welcome to the Water Testing Information Hub!")
